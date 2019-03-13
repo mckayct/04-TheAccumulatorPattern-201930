@@ -58,7 +58,7 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher, Mark Hays,
 #     f. The code in the "graphics accumulation" example below includes:
 #            for _ in range(n):
 #        What does the   _   (underscore) mean?
-#                        variable
+#                        index variable
 #     g. The code in the "graphics accumulation" example below includes:
 #
 #              x = starting_point.x
