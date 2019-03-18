@@ -27,8 +27,8 @@ import rosegraphics as rg
 # -----------------------------------------------------------------------------
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_draw_squares_from_circle()
-    run_test_draw_circles_from_rectangle()
+    #run_test_draw_squares_from_circle()
+    #run_test_draw_circles_from_rectangle()
     run_test_draw_lines_from_rectangles()
 
 
@@ -211,7 +211,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -321,7 +321,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type window: rg.RoseWindow
       """
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -339,12 +339,30 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     center1 = rectangle1.get_center()
     rectangle2.attach_to(window)
     rectangle1.attach_to(window)
-    lower = rectangle1.get_lower_left_corner()
-    for k in range (n):
-        line1 = rg.Line(rg.Point(center1.x,center1.y),rg.Point(center2.x,center2.y))
-        line1.attach_to(window)
-        line2 = rg.Line(lower,rg.Point(center2.x,center2.y - lower))
-        line2 = rg.Line(lower,rg.Point(center2.x,center2.y - lower))
+    lower_corner = rectangle1.get_lower_left_corner()
+
+    starting_point = rg.Point(center1.x,center1.y)
+    ending_point = rg.Point(center2.x,center2.y)
+
+    line1 = rg.Line(starting_point, ending_point)
+    line1.thickness = 5
+    line1.color = rectangle1.outline_color
+    line1.attach_to(window)
+
+    vertical_shift = rectangle1.get_height()*0.5
+    horizontal_shift = rectangle1.get_width()*0.5
+
+    for k in range(n):
+        line2 = rg.Line(rg.Point((lower_corner.x - horizontal_shift*k),(lower_corner.y + vertical_shift*k)),
+                         rg.Point(ending_point.x - horizontal_shift*(k + 1) , ending_point.y + vertical_shift*(k+1)))
+        line2.thickness = 5
+        line2.attach_to(window)
+        if k % 2 == 0:
+            line2.color = rectangle2.outline_color
+        else:
+            line2.color = rectangle1.outline_color
+
+
     window.render()
 
 
